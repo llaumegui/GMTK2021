@@ -8,7 +8,7 @@ public class Puppet : MonoBehaviour
 
     GameObject _magician;
     DistanceJoint2D _joint;
-    Rigidbody2D _rb;
+    [HideInInspector] public Rigidbody2D Rb;
     public float RopeLength;
 
     [Header("Friction")]
@@ -21,15 +21,26 @@ public class Puppet : MonoBehaviour
     Sprite _spriteDeactivated;
     public List<Sprite> ActivatedPuppet;
 
+    [Header("Hands")]
+    public Transform LeftHandUp;
+    public Transform RightHandUp;
+    public Transform LeftHand;
+    public Transform RightHand;
+    Vector3 _leftHandDefaultPos;
+    Vector3 _rightHandDefaultPos;
+
     private void Start()
     {
         _spriteDeactivated = PuppetRenderer.sprite;
         _joint = GetComponent<DistanceJoint2D>();
-        _rb = GetComponent<Rigidbody2D>();
+        Rb = GetComponent<Rigidbody2D>();
 
-        _defaultFriction = _rb.drag;
+        _defaultFriction = Rb.drag;
         _magician = ControllerScript.gameObject;
         _joint.distance = RopeLength;
+
+        _leftHandDefaultPos = LeftHand.localPosition;
+        _rightHandDefaultPos = RightHand.localPosition;
     }
 
     private void Update()
@@ -39,21 +50,36 @@ public class Puppet : MonoBehaviour
 
         if(AngularDrag())
         {
-            _rb.drag = Mathf.Lerp(_rb.drag, 1, FrictionLerp * Time.deltaTime);
+            Rb.drag = Mathf.Lerp(Rb.drag, 1, FrictionLerp * Time.deltaTime);
         }
         else
         {
-            _rb.drag = _defaultFriction;
+            Rb.drag = _defaultFriction;
         }
 
         //renderers
-        if (_rb.velocity.x > 0)
+        if (Rb.velocity.x > 0)
+        {
             PuppetRenderer.sprite = ActivatedPuppet[1];
+            LeftHand.position = LeftHandUp.position;
+            RightHand.position = RightHandUp.position;
+
+        }
         else
+        {
             PuppetRenderer.sprite = ActivatedPuppet[0];
 
-        if (_rb.drag > .75f)
+            LeftHand.localPosition = _leftHandDefaultPos;
+            RightHand.localPosition = _rightHandDefaultPos;
+        }
+
+        if (Rb.drag > .75f)
+        {
             PuppetRenderer.sprite = _spriteDeactivated;
+
+            LeftHand.localPosition = _leftHandDefaultPos;
+            RightHand.localPosition = _rightHandDefaultPos;
+        }
 
     }
 
@@ -61,7 +87,7 @@ public class Puppet : MonoBehaviour
     {
         bool result = false;
 
-        if(_rb.position.y> MaxDistanceFriction)
+        if(Rb.position.y> MaxDistanceFriction)
         {
             result = true;
         }
