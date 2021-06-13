@@ -107,9 +107,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ControllerScript: {fileID: 0}
+  LayerGround:
+    serializedVersion: 2
+    m_Bits: 256
   Rb: {fileID: 0}
   RopeLength: 3
-  MaxDistanceFriction: -0.2
+  MaxDistanceFriction: -0.1
   FrictionLerp: 0.2
   PuppetRenderer: {fileID: 1445535046731523466}
   ActivatedPuppet:
@@ -135,7 +138,7 @@ Rigidbody2D:
   m_LinearDrag: 0.2
   m_AngularDrag: 0.05
   m_GravityScale: 1
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: ee72257637863684ea81e096ceef29d5, type: 2}
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0

@@ -6,6 +6,8 @@ public class Puppet : MonoBehaviour
 {
     public Controller ControllerScript;
 
+    public LayerMask LayerGround;
+
     GameObject _magician;
     DistanceJoint2D _joint;
     [HideInInspector] public Rigidbody2D Rb;
@@ -80,6 +82,12 @@ public class Puppet : MonoBehaviour
             LeftHand.localPosition = _leftHandDefaultPos;
             RightHand.localPosition = _rightHandDefaultPos;
         }
+        //
+
+        if(Rb.position.y>.5f)
+        {
+            Rb.position = new Vector2(Rb.position.x, 0);
+        }
 
     }
 
@@ -87,14 +95,19 @@ public class Puppet : MonoBehaviour
     {
         bool result = false;
 
-        if(Rb.position.y> MaxDistanceFriction)
+        /*if(Rb.position.y> MaxDistanceFriction)
         {
             result = true;
-        }
+        }*/
 
         if (ControllerScript.X == 0)
             result = true;
 
         return result;
+    }
+
+    public void SetLength(float size)
+    {
+        _joint.distance = size;
     }
 }

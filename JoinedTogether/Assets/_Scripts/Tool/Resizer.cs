@@ -21,7 +21,7 @@ public class Resizer : MonoBehaviour
 
         foreach(SpriteRenderer r in Renderers)
         {
-            r.size = _defaultSize * _collider.size;
+            r.size = new Vector2(_defaultSize * _collider.size.x,r.size.y);
         }
     }
 }

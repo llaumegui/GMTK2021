@@ -23,6 +23,8 @@ public class Checkpoint : MonoBehaviour
             _renderer.enabled = false;
             _activationObject.SetActive(true);
 
+            SoundManager.PlaySound(SoundManager.Sound.Checkpoint);
+
 
             if(collision.gameObject.TryGetComponent(out Controller script))
             {
