@@ -14,9 +14,11 @@ public class PostProcess : MonoBehaviour
 
     int _selected;
 
-    private void Awake()
+    private void Start()
     {
-        if (_i != null && _i != this)
+        PostProcess obj = (PostProcess)FindObjectOfType<PostProcess>();
+
+        if (obj != this)
             Destroy(gameObject);
 
         _i = this;

@@ -56,6 +56,7 @@ public class Controller : MonoBehaviour
         _magicianRb = GetComponent<Rigidbody2D>();
 
         ProjectionVFX.SetActive(false);
+        End = false;
     }
 
     private void Update()

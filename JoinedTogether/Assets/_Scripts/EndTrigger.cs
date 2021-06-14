@@ -31,7 +31,9 @@ public class EndTrigger : MonoBehaviour
     private void Update()
     {
         if (Input.GetKeyDown(BackToMenu))
+        {
             SceneManager.LoadScene(0);
+        }
     }
 
     void End()
